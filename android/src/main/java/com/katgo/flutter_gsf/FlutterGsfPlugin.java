@@ -48,6 +48,7 @@ public class FlutterGsfPlugin implements FlutterPlugin, MethodCallHandler {
     channel.setMethodCallHandler(new FlutterGsfPlugin());
   }
 
+  @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getGsf")) {
@@ -60,6 +61,7 @@ public class FlutterGsfPlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
     channel.setMethodCallHandler(null);
+    applicationContext = null;
   }
 
   private static String getGsfAndroidId(Context context)
