@@ -1,18 +1,26 @@
 package com.katgo.flutter_gsf;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-
 import androidx.annotation.NonNull;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
+import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.database.Cursor;
+import android.media.MediaDrm;
+import android.net.Uri;
+import android.os.Build;
+
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.UUID;
 
 /** FlutterGsfPlugin */
 public class FlutterGsfPlugin implements FlutterPlugin, MethodCallHandler {
@@ -52,7 +60,7 @@ public class FlutterGsfPlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("getGsf")) {
-      result.success(getGsfAndroidId(applicationContext));
+      result.success(getGsfAndroidId(this.applicationContext));
     } else {
       result.notImplemented();
     }
